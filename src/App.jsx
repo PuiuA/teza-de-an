@@ -7,6 +7,7 @@ import News from './pages/News';
 import Results from './pages/Results';
 import Contacts from './pages/Contacts';
 import Sponsors from './pages/Sponsors';
+import CompetitionDetails from "./components/CompetitionDetails.jsx";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/competitions" element={<Competitions />} />
+                <Route path="/competitii/:id" element={<CompetitionDetails />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/results" element={<Results />} />
                 <Route path="/contacts" element={<Contacts />} />

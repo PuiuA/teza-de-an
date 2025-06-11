@@ -1,16 +1,16 @@
 .header {
     background-color: #538dc4;
     height: 80px;
-    position: sticky; /* schimbat din relative */
+    position: fixed;
     top: 0;
-    z-index: 10;
+    z-index: 100;
     display: flex;
     align-items: center;
     padding: 0 20px;
     width: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow-x: hidden;
 }
+
 .logo {
     height: 80px;
     margin-right: 10px;

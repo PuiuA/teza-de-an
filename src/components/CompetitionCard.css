@@ -1,0 +1,29 @@
+.competition-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 2px solid #1a1a3d;
+    gap: 20px;
+}
+
+.competition-info {
+    flex: 1;
+}
+
+.competition-img img {
+    width: 140px;
+    height: 100px;
+    background-color: #ccc;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.competition-link {
+    text-decoration: none;
+    color: inherit;
+
+}
+.competition-link :hover {
+}
+
