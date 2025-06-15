@@ -8,6 +8,8 @@ import Results from './pages/Results';
 import Contacts from './pages/Contacts';
 import Sponsors from './pages/Sponsors';
 import CompetitionDetails from "./components/CompetitionDetails.jsx";
+import NewsDetails from "./components/NewsDetails.jsx";
+import ResultDetails from "./components/ResultDetails.jsx";
 
 function App() {
     return (
@@ -19,7 +21,9 @@ function App() {
                 <Route path="/competitions" element={<Competitions />} />
                 <Route path="/competitii/:id" element={<CompetitionDetails />} />
                 <Route path="/news" element={<News />} />
+                <Route path="/news/:id" element={<NewsDetails />} />
                 <Route path="/results" element={<Results />} />
+                <Route path="/rezultate/:id" element={<ResultDetails />} />
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/sponsors" element={<Sponsors />} />
             </Routes>

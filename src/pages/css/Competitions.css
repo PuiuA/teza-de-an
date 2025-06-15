@@ -36,3 +36,18 @@
     border-radius: 4px;
     cursor: pointer;
 }
+.no-div {
+    margin-top: 100px;
+    margin-bottom: 100px;/* distanță față de filtre */
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+    font-weight: 500;
+}
+.competition-link {
+    color: inherit;
+    transition: all 0.3s ease;
+}
+.competition-link :hover {
+    color: #676797;
+}

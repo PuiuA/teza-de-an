@@ -1,14 +1,25 @@
+import { Link } from 'react-router-dom';
 import './NewsCard.css';
 
-function NewsCard({ title, date, description }) {
+function NewsCard({ news }) {
     return (
-        <div className="news-card">
-            <div className="news-header">
-                <h3>{title}</h3>
-                <span className="news-date">{date}</span>
+        <Link to={`/news/${news.id}`} className="news-link">
+            <div className="news-card">
+                <div className="news-img">
+                    <img src={`data:image/jpeg;base64,${news.image}`} alt={news.title} />
+                </div>
+                <div className="news-info">
+                    <h3>{news.title}</h3>
+                    <p className="short-description">
+                        {news.shortDescription.length > 150
+                            ? news.shortDescription.slice(0, 150) + '...'
+                            : news.shortDescription}
+                    </p>
+                    <small>{new Date(news.published).toLocaleDateString()}</small>
+                </div>
             </div>
-            <p className="news-description">{description}</p>
-        </div>
+
+        </Link>
     );
 }
 

@@ -1,0 +1,16 @@
+.result-card {
+    display: block;
+    margin: 1rem;
+    padding: 1.2rem;
+    border: 1px solid #426ea8;
+    border-radius: 8px;
+    background-color: white;
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.result-card:hover {
+    background-color: #e5f0ff;
+}

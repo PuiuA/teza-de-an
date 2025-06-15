@@ -1,36 +1,47 @@
 import { useEffect, useState } from 'react';
 import NewsCard from '../components/NewsCard';
-import Pagination from '../components/Pagination';
 import './css/News.css';
-
-const pageSize = 6;
 
 function News() {
     const [news, setNews] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
 
-    useEffect(() => {
-        // exemplu de request — înlocuiește cu backend real
-        fetch(`https:/8080/api/news?page=${currentPage}&size=${pageSize}`)
+    const fetchNews = () => {
+        fetch(`http://localhost:8080/api/news/paginated?page=${page}&size=6`)
             .then(res => res.json())
             .then(data => {
-                setNews(data.items); // `items` = array cu știri
+                setNews(data.content);
                 setTotalPages(data.totalPages);
-            });
-    }, [currentPage]);
+            })
+            .catch(err => console.error('Eroare la preluarea știrilor:', err));
+    };
+
+    useEffect(() => {
+        fetchNews();
+    }, [page]);
 
     return (
-        <div className="news-page" style={{ padding: '30px' }}>
+        <div className="news-page">
             <h2>Știri</h2>
-            {news.map((n) => (
-                <NewsCard key={n.id} news={n} />
-            ))}
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-            />
+
+            {news.length > 0 ? (
+                news.map((n, index) => <NewsCard key={index} news={n} />)
+            ) : (
+                <div className="no-div">Nu sunt știri disponibile</div>
+            )}
+
+            <div className="pagination">
+                {[...Array(totalPages)].map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setPage(i)}
+                        disabled={i === page}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
+            </div>
         </div>
     );
 }

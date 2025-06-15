@@ -43,7 +43,6 @@ function CompetitionDetails() {
                 {competition.description || 'Descrierea nu este disponibilă.'}
             </p>
 
-            <p className="competition-author">Author: ...</p>
         </div>
     );
 }

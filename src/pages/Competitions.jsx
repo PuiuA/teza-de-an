@@ -1,31 +1,38 @@
-import './css/Competitions.css';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import CompetitionList from '../components/CompetitionList';
+import "./css/Competitions.css"
 
 function Competitions() {
-    const [comp,setComp] = useState([]);
-    const currentYear = new Date().getFullYear();
+    const [competitions, setCompetitions] = useState([]);
     const [searchTitle, setSearchTitle] = useState('');
-    const [selectedYear, setSelectedYear] = useState(currentYear);
+    const [selectedYear, setSelectedYear] = useState('2025');
+    const [page, setPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
 
-    const filteredCompetitions = (comp || []).filter(comp => {
-        const year = new Date(comp.date).getFullYear();
-        return (
-            year === Number(selectedYear) &&
-            comp.title.toLowerCase().includes(searchTitle.toLowerCase())
-        );
-    });
+    const fetchCompetitions = () => {
+        const params = new URLSearchParams({
+            page,
+            size: 6,
+        });
+        if (searchTitle) params.append('title', searchTitle);
+        if (selectedYear !== 'All') params.append('year', selectedYear);
 
-    useEffect(() => {
-        fetch(`http://localhost:8080/api/competition`)
+        fetch(`http://localhost:8080/api/competition/paginated?${params.toString()}`)
             .then(res => res.json())
             .then(data => {
-                console.table(data);
-                setComp(data); // NU data.items — backendul returnează deja o listă
+                setCompetitions(data.content);
+                setTotalPages(data.totalPages);
             });
-    }, []);
+    };
 
+    useEffect(() => {
+        fetchCompetitions();
+    }, [page]);
 
+    const handleSearch = () => {
+        setPage(0);
+        fetchCompetitions();
+    };
 
     return (
         <div className="competitions-page">
@@ -34,24 +41,35 @@ function Competitions() {
             <div className="filters">
                 <input
                     type="text"
-                    placeholder="Denumirea Competiției"
+                    placeholder="Denumirea competiției"
                     value={searchTitle}
                     onChange={e => setSearchTitle(e.target.value)}
                 />
-
                 <select
                     value={selectedYear}
                     onChange={e => setSelectedYear(e.target.value)}
                 >
+                    <option value="All">Toate</option>
                     <option value="2025">2025</option>
                     <option value="2024">2024</option>
                     <option value="2023">2023</option>
                 </select>
-
-                <button>Caută</button>
+                <button onClick={handleSearch}>Caută</button>
             </div>
 
-            <CompetitionList competitions={filteredCompetitions} />
+            <CompetitionList competitions={competitions} />
+
+            <div className="pagination">
+                {[...Array(totalPages)].map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setPage(i)}
+                        disabled={i === page}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
+            </div>
         </div>
     );
 }

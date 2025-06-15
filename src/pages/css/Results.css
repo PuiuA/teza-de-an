@@ -1,0 +1,36 @@
+
+.results-page {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.results-page h2 {
+    margin-top: 100px;
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #0f172a;
+}
+
+.result-list {
+    display: flex;
+    flex-direction: column;
+    margin-right: 60px;
+    margin-left: 60px;
+}
+
+.result-card {
+    display: block;
+    background-color: #fff;
+    border: 1px solid #1e3a8a;
+    border-radius: 8px;
+    padding: 20px;
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.result-card:hover {
+    background-color: #e0f0ff;
+}

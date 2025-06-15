@@ -1,28 +1,28 @@
 import './LatestNews.css';
-import NewsCard from './NewsCard';
+import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
+import NewsCard from "./NewsCard.jsx";
 
 function LatestNews() {
+    const [newsList, setNewsList] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8080/api/news/recent')
+            .then(res => res.json())
+            .then(data => setNewsList(data))
+            .catch(err => console.error('Eroare la încărcarea știrilor:', err));
+    }, []);
+
     return (
         <div className="latest-news">
             <h2>Ultimele Știri</h2>
             <hr />
-            <NewsCard
-                title="Titlu știre 1"
-                date="3 iunie 2025"
-                description="Worem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus..."
-            />
-            <NewsCard
-                title="Titlu știre 2"
-                date="28 mai 2025"
-                description="Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus..."
-            />
-            <NewsCard
-                title="Titlu știre 3"
-                date="21 mai 2025"
-                description="Vestibulum sit amet urna turpis. Mauris euismod elit et nisi ultrices, ut faucibus orci tincidunt..."
-            />
+            {newsList.map((n, index) => <NewsCard key={index} news={n} />)}
+
             <div className="news-button-container">
-                <button className="news-button">Accesează știri</button>
+                <Link to="/news">
+                    <button className="news-button">Accesează știri</button>
+                </Link>
             </div>
         </div>
     );

@@ -14,7 +14,11 @@ function CompetitionCard({ competition }) {
                     <p>{competition.location}</p>
                 </div>
                 <div className="competition-img">
-                    <img src={competition.image} alt={competition.title} />
+                    <img
+                        src={`data:image/jpg;base64,${competition.image}`}
+                        alt={competition.title}
+                        className="competition-image"
+                    />
                 </div>
             </div>
         </Link>

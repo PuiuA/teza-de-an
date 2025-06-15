@@ -3,3 +3,52 @@
     padding: 30px 20px;
     margin: 60px auto 0;
 }
+.news-card {
+    display: flex;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+}
+
+.news-image img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+.news-content {
+    flex: 1;
+}
+
+.news-date {
+    font-size: 0.8rem;
+    color: gray;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 8px;
+}
+
+.pagination button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #0056b3; /* albastru */
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: #007bff;
+}
+
+.pagination button:disabled {
+    background-color: #4da3ff; /* albastru deschis pentru pagina curenta */
+    cursor: default;
+    opacity: 1;
+}
