@@ -8,7 +8,7 @@ function CompetitionList({ competitions }) {
                     <CompetitionCard key={index} competition={comp} />
                 ))
             ) : (
-                <div className="no-div">No competitions</div>
+                <div className="no-div">Nu sunt competiții disponibile</div>
             )}
         </div>
     );
