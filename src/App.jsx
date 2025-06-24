@@ -10,6 +10,7 @@ import Sponsors from './pages/Sponsors';
 import CompetitionDetails from "./components/CompetitionDetails.jsx";
 import NewsDetails from "./components/NewsDetails.jsx";
 import ResultDetails from "./components/ResultDetails.jsx";
+import "./App.css"
 
 function App() {
     return (
