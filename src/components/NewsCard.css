@@ -10,21 +10,22 @@
     margin-top: 30px;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
-
 .news-img {
     width: 220px;
-    height: 100px;
+    aspect-ratio: 4 / 3;
     flex-shrink: 0;
     border-radius: 6px;
     overflow: hidden;
+    height: auto;
 }
 
 .news-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
+    object-position: center;
 }
+
 
 .news-info {
     margin-left: 16px;

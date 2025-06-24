@@ -45,6 +45,7 @@
     text-align: justify;
     line-height: 1.6;
     font-size: 15px;
+    white-space: pre-wrap;
 }
 
 .news-author {

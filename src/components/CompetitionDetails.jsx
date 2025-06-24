@@ -43,6 +43,20 @@ function CompetitionDetails() {
                 {competition.description || 'Descrierea nu este disponibilă.'}
             </p>
 
+            {competition.links && competition.links.length > 0 && (
+                <div className="competition-links">
+                    <h3>Links:</h3>
+                    <ul>
+                        {competition.links.map((link, index) => (
+                            <li key={index}>
+                                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                                    {link.description || link.url}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 }

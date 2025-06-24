@@ -48,6 +48,9 @@ function NewsDetails() {
                     <p>{news.information}</p>
                 </>
             )}
+            {news.author && (
+                <p className="news-author">Autor: {news.author}</p>
+            )}
 
             {news.links && news.links.length > 0 && (
                 <>

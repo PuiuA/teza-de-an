@@ -13,10 +13,11 @@
 
 .competition-img img,
 .competition-image {
-    width: 120px;
-    height: 120px;
+    width: 180px;     /* era 120px */
+    height: 130px;    /* puțin mai lat decât înaltă */
     object-fit: cover;
+    object-position: center;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1); /* opțional, efect estetic */
 }
-
