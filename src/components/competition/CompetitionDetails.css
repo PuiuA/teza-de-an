@@ -1,0 +1,153 @@
+/* ── CompetitionDetails ── */
+.competition-details-container {
+    max-width: 860px;
+    margin: 100px auto 60px;
+    padding: 0 24px;
+}
+
+/* Breadcrumb-style back link */
+.details-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #4a90d9;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-bottom: 28px;
+    transition: gap 0.2s ease;
+}
+
+.details-back:hover {
+    gap: 10px;
+}
+
+/* Title block */
+.competition-title {
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: #1a2535;
+    margin: 0 0 10px 0;
+    line-height: 1.25;
+}
+
+.competition-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #eef4fb;
+    color: #4a90d9;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+}
+
+/* Image */
+.competition-image-wrapper {
+    width: 100%;
+    height: 400px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    background: #e8edf4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.competition-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.competition-placeholder {
+    color: #a0aebb;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Divider */
+.competition-divider {
+    border: none;
+    border-top: 2px solid #e8edf4;
+    margin: 0 0 28px 0;
+}
+
+/* Description */
+.competition-description {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #3a4a5c;
+    text-align: justify;
+    white-space: pre-wrap;
+}
+
+/* Links */
+.competition-links {
+    margin-top: 36px;
+    padding: 24px;
+    background: #f5f8fc;
+    border-radius: 12px;
+    border-left: 4px solid #4a90d9;
+}
+
+.competition-links h3 {
+    font-family: 'Georgia', serif;
+    color: #1a2535;
+    margin: 0 0 16px 0;
+    font-size: 1.1rem;
+}
+
+.competition-links ul {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.competition-links a {
+    color: #4a90d9;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.competition-links a:hover {
+    color: #1a2535;
+    text-decoration: underline;
+}
+
+/* Loading */
+.details-loading {
+    text-align: center;
+    padding: 120px 20px;
+    color: #8a96a3;
+    font-size: 1rem;
+    margin-top: 80px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .competition-details-container {
+        margin-top: 96px;
+        padding: 0 16px;
+    }
+
+    .competition-image-wrapper {
+        height: 240px;
+    }
+}

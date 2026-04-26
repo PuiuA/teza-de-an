@@ -1,0 +1,141 @@
+/* ── Header ── */
+.header {
+    background: linear-gradient(90deg, #1a2535 0%, #243044 100%);
+    height: 80px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    width: 100%;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    box-sizing: border-box;
+}
+
+.logo {
+    height: 62px;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Push nav to the right */
+.header-spacer {
+    flex: 1;
+}
+
+/* Desktop nav */
+.nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.nav a {
+    position: relative;
+    color: rgba(255,255,255,0.82);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: #4a90d9;
+    transition: width 0.25s ease;
+    border-radius: 1px;
+}
+
+.nav a:hover {
+    color: #ffffff;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* Hamburger button (mobile only) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    margin-left: auto;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav {
+        display: none;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: #1a2535;
+        flex-direction: column;
+        gap: 0;
+        padding: 12px 0 20px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav.open {
+        display: flex;
+    }
+
+    .nav a {
+        padding: 14px 28px;
+        font-size: 14px;
+        width: 100%;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav a::after {
+        display: none;
+    }
+
+    .nav a:hover {
+        background: rgba(74,144,217,0.12);
+    }
+}

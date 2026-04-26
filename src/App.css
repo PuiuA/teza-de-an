@@ -1,10 +1,84 @@
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+/* ── Global reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { cursor: default; }
+body {
+  margin: 0; padding: 0;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  background-color: #f0f2f5;
+  color: #1a2535;
+  -webkit-font-smoothing: antialiased;
+}
+#root { display: flex; flex-direction: column; min-height: 100vh; }
+main { flex-grow: 1; padding: 0; }
+
+/* Section header */
+.section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+.section-title { font-family: 'Georgia', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: #1a2535; margin: 0; white-space: nowrap; }
+.section-line { flex: 1; height: 2px; background: linear-gradient(to right, #4a90d9, transparent); border-radius: 1px; }
+
+/* Page title */
+.page-title { font-family: 'Georgia', serif; font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; color: #1a2535; margin: 0 0 32px 0; padding-bottom: 16px; border-bottom: 3px solid #4a90d9; display: inline-block; }
+
+/* CTA */
+.section-cta { display: inline-flex; align-items: center; gap: 8px; background: #1a2535; color: #fff; text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; padding: 13px 26px; border-radius: 6px; transition: background 0.2s ease, transform 0.2s ease; border: none; cursor: pointer; }
+.section-cta:hover { background: #4a90d9; transform: translateY(-2px); }
+.section-cta-arrow { transition: transform 0.2s ease; }
+.section-cta:hover .section-cta-arrow { transform: translateX(4px); }
+
+/* Filters */
+.filters { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+.filters input, .filters select { padding: 11px 16px; border: 2px solid #d0dce8; border-radius: 8px; font-size: 14px; color: #1a2535; background: #fff; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; font-family: inherit; cursor: auto; }
+.filters input { flex: 1; min-width: 200px; }
+.filters input:focus, .filters select:focus { border-color: #4a90d9; box-shadow: 0 0 0 3px rgba(74,144,217,0.15); }
+.filters button { background: #1a2535; color: #fff; padding: 11px 24px; font-weight: 700; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease; white-space: nowrap; }
+.filters button:hover { background: #4a90d9; transform: translateY(-1px); }
+
+/* Empty */
+.no-div { text-align: center; font-size: 1.1rem; color: #8a96a3; font-style: italic; padding: 80px 20px; background: #fff; border-radius: 12px; border: 2px dashed #d0dce8; margin: 16px 0; }
+
+/* Pagination */
+.pagination { display: flex; justify-content: center; margin-top: 40px; gap: 8px; flex-wrap: wrap; }
+.pagination button { width: 40px; height: 40px; border: 2px solid #d0dce8; border-radius: 8px; background: #fff; color: #1a2535; cursor: pointer; font-weight: 700; font-size: 14px; transition: all 0.2s ease; }
+.pagination button:hover:not(:disabled) { background: #4a90d9; border-color: #4a90d9; color: #fff; }
+.pagination button:disabled { background: #4a90d9; border-color: #4a90d9; color: #fff; cursor: default; }
+
+@media (max-width: 768px) {
+  .filters { flex-direction: column; }
+  .filters input { min-width: unset; }
 }
 
-main {
-  flex-grow: 1;
-  padding: 20px;
+/* ── Search input with clear button ── */
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  padding-right: 36px;
+  min-width: unset;
+  flex: unset;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #8a96a3;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 50%;
+  line-height: 1;
+  transition: color 0.2s ease, background 0.2s ease;
+  transform: none !important;
+}
+
+.clear-btn:hover {
+  color: #1a2535;
+  background: #e8edf4;
 }

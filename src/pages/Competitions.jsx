@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import CompetitionList from '../components/CompetitionList';
-import "./css/Competitions.css"
+import CompetitionList from '../components/competition/CompetitionList.jsx';
+import "./css/Competitions.css";
 
 function Competitions() {
     const [competitions, setCompetitions] = useState([]);
@@ -9,15 +9,12 @@ function Competitions() {
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
 
-    const fetchCompetitions = () => {
-        const params = new URLSearchParams({
-            page,
-            size: 6,
-        });
-        if (searchTitle) params.append('title', searchTitle);
-        if (selectedYear !== 'All') params.append('year', selectedYear);
+    const fetchCompetitions = (currentPage = page, currentSearch = searchTitle, currentYear = selectedYear) => {
+        const params = new URLSearchParams({ page: currentPage, size: 6 });
+        if (currentSearch) params.append('title', currentSearch);
+        if (currentYear !== 'All') params.append('year', currentYear);
 
-        fetch(`http://localhost:8080/api/competition/paginated?${params.toString()}`)
+        fetch(`https://localhost:8443/api/competition/paginated?${params.toString()}`)
             .then(res => res.json())
             .then(data => {
                 setCompetitions(data.content);
@@ -26,29 +23,42 @@ function Competitions() {
     };
 
     useEffect(() => {
-        fetchCompetitions();
+        fetchCompetitions(page);
     }, [page]);
 
     const handleSearch = () => {
         setPage(0);
-        fetchCompetitions();
+        fetchCompetitions(0, searchTitle, selectedYear);
+    };
+
+    const handleClear = () => {
+        setSearchTitle('');
+        setPage(0);
+        fetchCompetitions(0, '', selectedYear);
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') handleSearch();
     };
 
     return (
         <div className="competitions-page">
-            <h2>Competiții</h2>
+            <h2 className="page-title">Competiții</h2>
 
             <div className="filters">
-                <input
-                    type="text"
-                    placeholder="Denumirea competiției"
-                    value={searchTitle}
-                    onChange={e => setSearchTitle(e.target.value)}
-                />
-                <select
-                    value={selectedYear}
-                    onChange={e => setSelectedYear(e.target.value)}
-                >
+                <div className="search-input-wrapper">
+                    <input
+                        type="text"
+                        placeholder="Denumirea competiției"
+                        value={searchTitle}
+                        onChange={e => setSearchTitle(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
+                    {searchTitle && (
+                        <button className="clear-btn" onClick={handleClear} title="Șterge">✕</button>
+                    )}
+                </div>
+                <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
                     <option value="All">Toate</option>
                     <option value="2025">2025</option>
                     <option value="2024">2024</option>
@@ -61,13 +71,7 @@ function Competitions() {
 
             <div className="pagination">
                 {[...Array(totalPages)].map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => setPage(i)}
-                        disabled={i === page}
-                    >
-                        {i + 1}
-                    </button>
+                    <button key={i} onClick={() => setPage(i)} disabled={i === page}>{i + 1}</button>
                 ))}
             </div>
         </div>

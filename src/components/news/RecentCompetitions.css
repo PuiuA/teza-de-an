@@ -1,0 +1,111 @@
+/* ── RecentCompetitions ── */
+.recent-competitions {
+    max-width: 1100px;
+    margin: 56px auto;
+    padding: 0 24px;
+}
+
+.competitions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.competition-item {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 22px 24px;
+    border-left: 4px solid #4a90d9;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
+
+.competition-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(74,144,217,0.18);
+}
+
+.competition-item-date {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #4a90d9;
+    margin-bottom: 8px;
+}
+
+.competition-item-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a2535;
+    margin: 0 0 6px 0;
+    line-height: 1.35;
+}
+
+.competition-item-location {
+    font-size: 13px;
+    color: #6b7a8d;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.comp-empty {
+    text-align: center;
+    padding: 40px;
+    color: #8a96a3;
+    font-style: italic;
+    background: #fff;
+    border-radius: 10px;
+    grid-column: 1 / -1;
+}
+
+/* See all button */
+.section-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #1a2535;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 13px 26px;
+    border-radius: 6px;
+    transition: background 0.2s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.section-cta:hover {
+    background: #4a90d9;
+    transform: translateY(-2px);
+}
+
+.section-cta-arrow {
+    transition: transform 0.2s ease;
+}
+
+.section-cta:hover .section-cta-arrow {
+    transform: translateX(4px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .recent-competitions {
+        margin: 36px auto;
+        padding: 0 16px;
+    }
+
+    .competitions-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+}

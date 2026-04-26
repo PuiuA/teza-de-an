@@ -1,53 +1,134 @@
+/* ── Competitions Page ── */
 .competitions-page {
-    max-width: 1000px;
-    padding: 30px 20px;
-    margin: 60px auto 0;
+    font-family: 'Georgia', serif;
+    max-width: 1100px;
+    padding: 40px 24px;
+    margin: 80px auto 0;
 }
 
-.competitions-page h2 {
-    margin-bottom: 20px;
+.page-title {
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: #1a2535;
+    margin: 0 0 32px 0;
+    padding-bottom: 16px;
+    border-bottom: 3px solid #4a90d9;
+    display: inline-block;
 }
 
+/* ── Filters ── */
 .filters {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+    padding: 11px 16px;
+    border: 2px solid #d0dce8;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1a2535;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
 }
 
 .filters input {
     flex: 1;
-    padding: 10px;
-    border: #213547 2px solid;
-    border-radius: 4px;
+    min-width: 200px;
 }
 
-.filters select {
-    padding: 10px;
-    border: #213547 2px solid;
-    border-radius: 4px;
+.filters input:focus,
+.filters select:focus {
+    border-color: #4a90d9;
+    box-shadow: 0 0 0 3px rgba(74,144,217,0.15);
 }
 
 .filters button {
-    background-color: #1a1a3d;
-    color: white;
-    padding: 10px 20px;
-    font-weight: bold;
+    background: #1a2535;
+    color: #fff;
+    padding: 11px 24px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
 }
+
+.filters button:hover {
+    background: #4a90d9;
+    transform: translateY(-1px);
+}
+
+/* ── Empty state ── */
 .no-div {
-    margin-top: 100px;
-    margin-bottom: 100px;/* distanță față de filtre */
     text-align: center;
-    font-size: 1.5rem;
-    color: #555;
-    font-weight: 500;
+    font-size: 1.1rem;
+    color: #8a96a3;
+    font-style: italic;
+    padding: 80px 20px;
+    background: #fff;
+    border-radius: 12px;
+    border: 2px dashed #d0dce8;
+    margin: 16px 0;
 }
-.competition-link {
-    color: inherit;
-    transition: all 0.3s ease;
+
+/* ── Pagination ── */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
-.competition-link :hover {
-    color: #676797;
+
+.pagination button {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #d0dce8;
+    border-radius: 8px;
+    background: #fff;
+    color: #1a2535;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #4a90d9;
+    border-color: #4a90d9;
+    color: #fff;
+}
+
+.pagination button:disabled {
+    background: #4a90d9;
+    border-color: #4a90d9;
+    color: #fff;
+    cursor: default;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .competitions-page {
+        padding: 24px 16px;
+        margin-top: 80px;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+
+    .filters input {
+        min-width: unset;
+    }
 }

@@ -1,0 +1,60 @@
+.result-details {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.result-details h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #0f172a;
+}
+
+.category-result {
+    background-color: #fff;
+    border: 1px solid #1e3a8a;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.category-result h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #1e3a8a;
+}
+
+.category-result p {
+    white-space: pre-line;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+}
+.category-result p {
+    white-space: pre-line;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.details-back-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #4a90d9;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 28px;
+    margin-top: 100px;
+    padding: 0;
+    transition: gap 0.2s ease;
+}
+
+.details-back:hover {
+    gap: 10px;
+}

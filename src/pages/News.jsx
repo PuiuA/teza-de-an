@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import NewsCard from '../components/NewsCard';
+import NewsCard from '../components/news/NewsCard.jsx';
 import './css/News.css';
 
 function News() {
@@ -9,49 +9,59 @@ function News() {
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
 
-    const fetchNews = () => {
-        const params = new URLSearchParams({
-            page,
-            size: 6
-        });
-        if (searchTitle) params.append('title', searchTitle);
-        if (selectedType !== 'All') params.append('type', selectedType);
+    const fetchNews = (currentPage = page, currentSearch = searchTitle, currentType = selectedType) => {
+        const params = new URLSearchParams({ page: currentPage, size: 6 });
+        if (currentSearch) params.append('title', currentSearch);
+        if (currentType !== 'All') params.append('type', currentType);
 
-        fetch(`http://localhost:8080/api/news/paginated?${params.toString()}`)
+        fetch(`https://localhost:8443/api/news/paginated?${params.toString()}`)
             .then(res => res.json())
             .then(data => {
                 setNews(data.content);
                 setTotalPages(data.totalPages);
             })
-            .catch(err => console.error('Eroare la preluarea știrilor:', err));
+            .catch(err => console.error('Eroare:', err));
     };
 
     useEffect(() => {
-        fetchNews();
+        fetchNews(page);
     }, [page]);
 
     const handleSearch = () => {
         setPage(0);
-        fetchNews();
+        fetchNews(0, searchTitle, selectedType);
+    };
+
+    const handleClear = () => {
+        setSearchTitle('');
+        setPage(0);
+        fetchNews(0, '', selectedType);
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') handleSearch();
     };
 
     return (
         <div className="news-page">
-            <h2>Știri</h2>
+            <h2 className="page-title">Știri</h2>
 
             <div className="filters">
-                <input
-                    type="text"
-                    placeholder="Titlul știrii"
-                    value={searchTitle}
-                    onChange={e => setSearchTitle(e.target.value)}
-                />
-                <select
-                    value={selectedType}
-                    onChange={e => setSelectedType(e.target.value)}
-                >
+                <div className="search-input-wrapper">
+                    <input
+                        type="text"
+                        placeholder="Titlul știrii"
+                        value={searchTitle}
+                        onChange={e => setSearchTitle(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
+                    {searchTitle && (
+                        <button className="clear-btn" onClick={handleClear} title="Șterge">✕</button>
+                    )}
+                </div>
+                <select value={selectedType} onChange={e => setSelectedType(e.target.value)}>
                     <option value="All">Toate</option>
-                    <option value="COMPETIȚIE">Competiție</option>
+                    <option value="COMPETIȚIE">Competiții</option>
                     <option value="CANTONAMENT">Cantonament</option>
                     <option value="SEMINAR">Seminar</option>
                     <option value="REZULTAT">Rezultate</option>
@@ -67,13 +77,7 @@ function News() {
 
             <div className="pagination">
                 {[...Array(totalPages)].map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => setPage(i)}
-                        disabled={i === page}
-                    >
-                        {i + 1}
-                    </button>
+                    <button key={i} onClick={() => setPage(i)} disabled={i === page}>{i + 1}</button>
                 ))}
             </div>
         </div>

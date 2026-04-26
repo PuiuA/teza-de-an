@@ -3,7 +3,7 @@ import './EventCard.css';
 
 function EventCard({ id, title, date, location }) {
     return (
-        <Link to={`/competitii/${id}`} className="event-card">
+        <Link to={`/competitions/${id}`} className="event-card">
             <div className="event-card">
                 <h3>{title}</h3>
                 <p><strong>{new Date(date).toLocaleString('ro-RO', {

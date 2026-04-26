@@ -1,0 +1,17 @@
+import CompetitionCard from './CompetitionCard.jsx';
+
+function CompetitionList({ competitions }) {
+    return (
+        <div>
+            {competitions.length > 0 ? (
+                competitions.map((comp, index) => (
+                    <CompetitionCard key={index} competition={comp} />
+                ))
+            ) : (
+                <div className="no-div">Nu sunt competiții disponibile</div>
+            )}
+        </div>
+    );
+}
+
+export default CompetitionList;

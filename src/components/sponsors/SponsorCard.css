@@ -1,0 +1,30 @@
+/* ── SponsorCard ── */
+.sponsor-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 16px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border: 1px solid #e8edf4;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.sponsor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 22px rgba(74,144,217,0.15);
+}
+
+.sponsor-card img {
+    max-width: 100%;
+    max-height: 68px;
+    object-fit: contain;
+    filter: grayscale(20%);
+    transition: filter 0.22s ease;
+}
+
+.sponsor-card:hover img {
+    filter: grayscale(0%);
+}

@@ -1,82 +1,17 @@
-.news-page{
-    max-width: 1000px;
-    padding: 30px 20px;
-    margin: 60px auto 0;
-}
-.news-card {
-    display: flex;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #ccc;
-    padding: 1rem 0;
+/* ── News Page ── */
+.news-page {
+    font-family: 'Georgia', serif;
+    max-width: 1100px;
+    padding: 40px 24px;
+    margin: 80px auto 0;
 }
 
-.news-image img {
-    width: 200px;
-    height: 150px;
-    object-fit: cover;
-    margin-right: 1rem;
-}
+/* Filters, pagination, no-div — reuse din Competitions.css via App.css globals */
 
-.news-content {
-    flex: 1;
-}
-
-.news-date {
-    font-size: 0.8rem;
-    color: gray;
-}
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    gap: 8px;
-}
-
-.pagination button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    background-color: #0056b3; /* albastru */
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.pagination button:hover {
-    background-color: #007bff;
-}
-
-.pagination button:disabled {
-    background-color: #4da3ff; /* albastru deschis pentru pagina curenta */
-    cursor: default;
-    opacity: 1;
-}
-.filters input {
-    flex: 1;
-    padding: 10px;
-    border: #213547 2px solid;
-    border-radius: 4px;
-}
-.filters select {
-    padding: 10px;
-    border: #213547 2px solid;
-    border-radius: 4px;
-}
-.filters button {
-    background-color: #1a1a3d;
-    color: white;
-    padding: 10px 20px;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-.news-page h2 {
-    margin-bottom: 20px;
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .news-page {
+        padding: 24px 16px;
+        margin-top: 80px;
+    }
 }
