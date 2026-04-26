@@ -1,12 +1,13 @@
 import './RecentCompetitions.css';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import API from "../../config/api.js";
 
 function RecentCompetitions() {
     const [competitions, setCompetitions] = useState([]);
 
     useEffect(() => {
-        fetch('https://localhost:8443/api/competition/recent')
+        fetch(`${API}/api/competition/recent`)
             .then(res => res.json())
             .then(data => setCompetitions(data))
             .catch(err => console.error('Eroare competiții:', err));

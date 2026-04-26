@@ -1,13 +1,14 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './CompetitionDetails.css';
+import API from "../../config/api.js";
 
 function CompetitionDetails() {
     const { id } = useParams();
     const [competition, setCompetition] = useState(null);
 
     useEffect(() => {
-        fetch(`https://localhost:8443/api/competition/${id}`)
+        fetch(`${API}/api/competition/${id}`)
             .then(res => res.json())
             .then(data => setCompetition(data))
             .catch(err => console.error('Eroare:', err));

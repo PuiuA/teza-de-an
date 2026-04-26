@@ -1,12 +1,13 @@
 import './LatestNews.css';
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import API from "../../config/api.js";
 
 function LatestNews() {
     const [newsList, setNewsList] = useState([]);
 
     useEffect(() => {
-        fetch('https://localhost:8443/api/news/recent')
+        fetch(`${API}/api/news/recent`)
             .then(res => res.json())
             .then(data => setNewsList(data))
             .catch(err => console.error('Eroare știri:', err));

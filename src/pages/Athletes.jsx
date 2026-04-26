@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './css/Athletes.css';
+import API from "../config/api.js";
 
 function Athletes() {
     const [athletes, setAthletes] = useState([]);
@@ -14,7 +15,7 @@ function Athletes() {
         const params = new URLSearchParams({ page: currentPage, size: 8 });
         if (currentSearch.trim()) params.append('name', currentSearch.trim());
 
-        fetch(`https://localhost:8443/api/athletes/paginated?${params.toString()}`)
+        fetch(`${API}/api/athletes/paginated?${params.toString()}`)
             .then(res => res.json())
             .then(data => {
                 setAthletes(data.content);

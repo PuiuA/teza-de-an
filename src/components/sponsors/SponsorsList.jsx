@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import './SponsorsList.css';
 import SponsorCard from './SponsorCard.jsx';
+import API from "../../config/api.js";
 
 function SponsorsList() {
     const [sponsors, setSponsors] = useState([]);
 
     useEffect(() => {
-        fetch('https://localhost:8443/api/sponsors')
+        fetch(`${API}/api/sponsors`)
             .then(res => res.json())
             .then(data => setSponsors(data))
             .catch(err => console.error('Eroare sponsori:', err));

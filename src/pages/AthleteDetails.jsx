@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './css/Athletes.css';
+import API from "../config/api.js";
 
 function AthleteDetails() {
     const { id } = useParams();
     const [athlete, setAthlete] = useState(null);
 
     useEffect(() => {
-        fetch(`https://localhost:8443/api/athletes/${id}`)
+        fetch(`${API}/api/athletes/${id}`)
             .then(res => res.json())
             .then(data => setAthlete(data))
             .catch(err => console.error('Error:', err));

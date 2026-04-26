@@ -1,13 +1,14 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './NewsDetails.css';
+import API from "../../config/api.js";
 
 function NewsDetails() {
     const { id } = useParams();
     const [news, setNews] = useState(null);
 
     useEffect(() => {
-        fetch(`https://localhost:8443/api/news/${id}`)
+        fetch(`${API}/api/news/${id}`)
             .then(res => res.json())
             .then(data => setNews(data))
             .catch(err => console.error('Eroare:', err));

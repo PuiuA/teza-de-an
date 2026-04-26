@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CompetitionList from '../components/competition/CompetitionList.jsx';
 import "./css/Competitions.css";
+import API from '../config/api.js';
 
 function Competitions() {
     const [competitions, setCompetitions] = useState([]);
@@ -14,7 +15,7 @@ function Competitions() {
         if (currentSearch) params.append('title', currentSearch);
         if (currentYear !== 'All') params.append('year', currentYear);
 
-        fetch(`https://localhost:8443/api/competition/paginated?${params.toString()}`)
+        fetch(`${API}/api/competition/paginated?${params.toString()}`)
             .then(res => res.json())
             .then(data => {
                 setCompetitions(data.content);

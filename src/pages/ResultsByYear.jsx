@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './css/Results.css';
+import API from "../config/api.js";
 
 function ResultsByYear() {
     const { year } = useParams();
@@ -8,7 +9,7 @@ function ResultsByYear() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`https://localhost:8443/api/results/year/${year}`)
+        fetch(`${API}/api/results/year/${year}`)
             .then(res => res.json())
             .then(data => setResults(data))
             .catch(err => console.error('Error:', err))

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './css/Results.css';
+import API from "../config/api.js";
 
 function Results() {
     const [years, setYears] = useState([]);
@@ -8,7 +9,7 @@ function Results() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('https://localhost:8443/api/results/years')
+        fetch(`${API}/api/results/years`)
             .then(res => res.json())
             .then(data => setYears(data))
             .catch(err => console.error('Error:', err))

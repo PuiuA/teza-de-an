@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import NewsCard from '../components/news/NewsCard.jsx';
 import './css/News.css';
+import API from '../config/api.js';
 
 function News() {
     const [news, setNews] = useState([]);
@@ -14,7 +15,7 @@ function News() {
         if (currentSearch) params.append('title', currentSearch);
         if (currentType !== 'All') params.append('type', currentType);
 
-        fetch(`https://localhost:8443/api/news/paginated?${params.toString()}`)
+        fetch(`${API}/api/news/paginated?${params.toString()}`)
             .then(res => res.json())
             .then(data => {
                 setNews(data.content);

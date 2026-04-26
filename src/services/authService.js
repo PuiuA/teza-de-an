@@ -1,4 +1,4 @@
-const API = 'https://localhost:8443';
+import API from '../config/api.js';
 
 const getToken = () => sessionStorage.getItem('accessToken');
 const getRefresh = () => sessionStorage.getItem('refreshToken');

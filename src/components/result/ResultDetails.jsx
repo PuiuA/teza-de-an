@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import './ResultDetails.css';
+import API from "../../config/api.js";
 
 function ResultDetails() {
     const { id } = useParams();
@@ -8,7 +9,7 @@ function ResultDetails() {
     const [result, setResult] = useState(null);
 
     useEffect(() => {
-        fetch(`https://localhost:8443/api/results/${id}`)
+        fetch(`${API}/api/results/${id}`)
             .then(res => res.json())
             .then(data => setResult(data))
             .catch(err => console.error('Error:', err));
