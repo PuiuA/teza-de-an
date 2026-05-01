@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { authService } from '../../services/authService';
 
-const EMPTY_FORM = { title: '', shortDescription: '', description: '', information: '', dateTime: '', image: null };
+const EMPTY_FORM = { title: '', shortDescription: '', description: '', information: '', date: '', image: null };
 
 const toBase64 = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -49,7 +49,7 @@ function AdminCompetitions() {
         setForm({
             title: c.title, shortDescription: c.shortDescription,
             description: c.description, information: c.information || '',
-            dateTime: c.date ? c.date.substring(0, 16) : '',
+            date: c.date ? c.date.substring(0, 16) : '',  // ← dateTime → date
             image: c.image || null,
         });
         setModal('edit');
@@ -122,7 +122,8 @@ function AdminCompetitions() {
                         ))}
                         <div className="admin-form-group">
                             <label className="admin-form-label">Data și ora</label>
-                            <input className="admin-form-input" type="datetime-local" value={form.dateTime} onChange={f('dateTime')} />
+                            <input className="admin-form-input" type="datetime-local"
+                                   value={form.date} onChange={f('date')} />
                         </div>
                         <ImageField value={form.image} onChange={(b64) => setForm(p => ({...p, image: b64}))} />
                         <div className="admin-modal-actions">
