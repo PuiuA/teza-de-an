@@ -22,7 +22,7 @@ export const authService = {
 
     logout() {
         sessionStorage.clear();
-        window.location.href = '/admin/login';
+        window.location.href = '/';
     },
 
     me() {

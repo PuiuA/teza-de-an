@@ -31,12 +31,31 @@ function ImageField({ value, onChange }) {
     );
 }
 
+function ConfirmCloseModal({ onConfirm, onCancel }) {
+    return (
+        <div className="admin-modal-overlay" style={{zIndex:300}} onClick={onCancel}>
+            <div className="admin-modal" style={{maxWidth:'400px'}} onClick={e => e.stopPropagation()}>
+                <h3 className="admin-modal-title">Părăsești fără salvare?</h3>
+                <p style={{color:'#3a4a5c',fontSize:'15px',margin:'0 0 24px'}}>
+                    Modificările nesalvate vor fi pierdute. Ești sigur că vrei să închizi?
+                </p>
+                <div className="admin-modal-actions">
+                    <button className="admin-cancel-btn" onClick={onCancel}>Rămâi</button>
+                    <button className="admin-delete-btn" onClick={onConfirm}>Închide fără salvare</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function AdminNews() {
     const [newsList, setNewsList] = useState([]);
     const [modal, setModal] = useState(null);
     const [selected, setSelected] = useState(null);
     const [form, setForm] = useState(EMPTY_FORM);
     const [loading, setLoading] = useState(true);
+    const [showConfirmClose, setShowConfirmClose] = useState(false);
+    const [isDirty, setIsDirty] = useState(false);
 
     const load = () => {
         authService.fetchWithAuth('/api/news')
@@ -46,7 +65,7 @@ function AdminNews() {
 
     useEffect(() => { load(); }, []);
 
-    const openAdd = () => { setForm(EMPTY_FORM); setModal('add'); };
+    const openAdd = () => { setForm(EMPTY_FORM); setIsDirty(false); setModal('add'); };
     const openEdit = (n) => {
         setSelected(n);
         setForm({
@@ -55,10 +74,25 @@ function AdminNews() {
             information: n.information || '', eventTypeId: n.eventType?.id || 1,
             image: n.image || null,
         });
+        setIsDirty(false);
         setModal('edit');
     };
     const openDelete = (n) => { setSelected(n); setModal('delete'); };
-    const closeModal = () => { setModal(null); setSelected(null); };
+
+    const tryClose = () => {
+        if (isDirty) {
+            setShowConfirmClose(true);
+        } else {
+            closeModal();
+        }
+    };
+
+    const closeModal = () => {
+        setModal(null);
+        setSelected(null);
+        setShowConfirmClose(false);
+        setIsDirty(false);
+    };
 
     const handleSave = async () => {
         const payload = { ...form, published: new Date().toISOString() };
@@ -73,7 +107,7 @@ function AdminNews() {
         closeModal(); load();
     };
 
-    const f = (k) => (e) => setForm(p => ({ ...p, [k]: e.target.value }));
+    const f = (k) => (e) => { setForm(p => ({ ...p, [k]: e.target.value })); setIsDirty(true); };
 
     return (
         <AdminLayout title="Știri">
@@ -115,7 +149,7 @@ function AdminNews() {
             </div>
 
             {(modal === 'add' || modal === 'edit') && (
-                <div className="admin-modal-overlay" onClick={closeModal}>
+                <div className="admin-modal-overlay" onClick={tryClose}>
                     <div className="admin-modal" onClick={e => e.stopPropagation()}>
                         <h3 className="admin-modal-title">{modal === 'add' ? 'Adaugă Știre' : 'Editează Știre'}</h3>
                         <div className="admin-form-group"><label className="admin-form-label">Titlu</label><input className="admin-form-input" value={form.title} onChange={f('title')} /></div>
@@ -123,13 +157,17 @@ function AdminNews() {
                         <div className="admin-form-group"><label className="admin-form-label">Descriere completă</label><textarea className="admin-form-textarea" style={{minHeight:'140px'}} value={form.description} onChange={f('description')} /></div>
                         <div className="admin-form-group"><label className="admin-form-label">Autor</label><input className="admin-form-input" value={form.author} onChange={f('author')} /></div>
                         <div className="admin-form-group"><label className="admin-form-label">Informații suplimentare</label><textarea className="admin-form-textarea" value={form.information} onChange={f('information')} /></div>
-                        <ImageField value={form.image} onChange={(b64) => setForm(p => ({...p, image: b64}))} />
+                        <ImageField value={form.image} onChange={(b64) => { setForm(p => ({...p, image: b64})); setIsDirty(true); }} />
                         <div className="admin-modal-actions">
-                            <button className="admin-cancel-btn" onClick={closeModal}>Anulează</button>
+                            <button className="admin-cancel-btn" onClick={tryClose}>Anulează</button>
                             <button className="admin-save-btn" onClick={handleSave}>Salvează</button>
                         </div>
                     </div>
                 </div>
+            )}
+
+            {showConfirmClose && (
+                <ConfirmCloseModal onConfirm={closeModal} onCancel={() => setShowConfirmClose(false)} />
             )}
 
             {modal === 'delete' && (

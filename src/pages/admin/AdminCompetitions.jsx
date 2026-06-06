@@ -28,12 +28,31 @@ function ImageField({ value, onChange }) {
     );
 }
 
+function ConfirmCloseModal({ onConfirm, onCancel }) {
+    return (
+        <div className="admin-modal-overlay" style={{zIndex:300}} onClick={onCancel}>
+            <div className="admin-modal" style={{maxWidth:'400px'}} onClick={e => e.stopPropagation()}>
+                <h3 className="admin-modal-title">Părăsești fără salvare?</h3>
+                <p style={{color:'#3a4a5c',fontSize:'15px',margin:'0 0 24px'}}>
+                    Modificările nesalvate vor fi pierdute. Ești sigur că vrei să închizi?
+                </p>
+                <div className="admin-modal-actions">
+                    <button className="admin-cancel-btn" onClick={onCancel}>Rămâi</button>
+                    <button className="admin-delete-btn" onClick={onConfirm}>Închide fără salvare</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function AdminCompetitions() {
     const [list, setList] = useState([]);
     const [modal, setModal] = useState(null);
     const [selected, setSelected] = useState(null);
     const [form, setForm] = useState(EMPTY_FORM);
     const [loading, setLoading] = useState(true);
+    const [showConfirmClose, setShowConfirmClose] = useState(false);
+    const [isDirty, setIsDirty] = useState(false);
 
     const load = () => {
         authService.fetchWithAuth('/api/competition')
@@ -43,19 +62,29 @@ function AdminCompetitions() {
 
     useEffect(() => { load(); }, []);
 
-    const openAdd = () => { setForm(EMPTY_FORM); setModal('add'); };
+    const openAdd = () => { setForm(EMPTY_FORM); setIsDirty(false); setModal('add'); };
     const openEdit = (c) => {
         setSelected(c);
         setForm({
             title: c.title, shortDescription: c.shortDescription,
             description: c.description, information: c.information || '',
-            date: c.date ? c.date.substring(0, 16) : '',  // ← dateTime → date
+            date: c.date ? c.date.substring(0, 16) : '',
             image: c.image || null,
         });
+        setIsDirty(false);
         setModal('edit');
     };
     const openDelete = (c) => { setSelected(c); setModal('delete'); };
-    const closeModal = () => { setModal(null); setSelected(null); };
+
+    const tryClose = () => {
+        if (isDirty) setShowConfirmClose(true);
+        else closeModal();
+    };
+
+    const closeModal = () => {
+        setModal(null); setSelected(null);
+        setShowConfirmClose(false); setIsDirty(false);
+    };
 
     const handleSave = async () => {
         const url = modal === 'edit' ? `/api/competition/${selected.id}` : '/api/competition';
@@ -69,7 +98,7 @@ function AdminCompetitions() {
         closeModal(); load();
     };
 
-    const f = (k) => (e) => setForm(p => ({ ...p, [k]: e.target.value }));
+    const f = (k) => (e) => { setForm(p => ({ ...p, [k]: e.target.value })); setIsDirty(true); };
 
     const fieldLabels = { title: 'Titlu', shortDescription: 'Descriere scurtă', description: 'Descriere completă', information: 'Informații' };
 
@@ -109,7 +138,7 @@ function AdminCompetitions() {
             </div>
 
             {(modal === 'add' || modal === 'edit') && (
-                <div className="admin-modal-overlay" onClick={closeModal}>
+                <div className="admin-modal-overlay" onClick={tryClose}>
                     <div className="admin-modal" onClick={e => e.stopPropagation()}>
                         <h3 className="admin-modal-title">{modal === 'add' ? 'Adaugă Competiție' : 'Editează Competiție'}</h3>
                         {Object.entries(fieldLabels).map(([k, label]) => (
@@ -125,13 +154,17 @@ function AdminCompetitions() {
                             <input className="admin-form-input" type="datetime-local"
                                    value={form.date} onChange={f('date')} />
                         </div>
-                        <ImageField value={form.image} onChange={(b64) => setForm(p => ({...p, image: b64}))} />
+                        <ImageField value={form.image} onChange={(b64) => { setForm(p => ({...p, image: b64})); setIsDirty(true); }} />
                         <div className="admin-modal-actions">
-                            <button className="admin-cancel-btn" onClick={closeModal}>Anulează</button>
+                            <button className="admin-cancel-btn" onClick={tryClose}>Anulează</button>
                             <button className="admin-save-btn" onClick={handleSave}>Salvează</button>
                         </div>
                     </div>
                 </div>
+            )}
+
+            {showConfirmClose && (
+                <ConfirmCloseModal onConfirm={closeModal} onCancel={() => setShowConfirmClose(false)} />
             )}
 
             {modal === 'delete' && (
