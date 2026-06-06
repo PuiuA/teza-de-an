@@ -1,37 +1,18 @@
 // src/components/admin/PrivateRoute.jsx
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { authService } from '../../services/authService';
+import { Navigate, useLocation } from 'react-router-dom';
 
 function PrivateRoute({ children, requireSuperAdmin = false }) {
-    const [status, setStatus] = useState('loading'); // loading | ok | unauthorized
-    const [role, setRole] = useState(null);
+    const location = useLocation();
+    const token = sessionStorage.getItem('accessToken');
+    const role = sessionStorage.getItem('role');
 
-    useEffect(() => {
-        const token = sessionStorage.getItem('accessToken');
-        const role = sessionStorage.getItem('role');
+    if (!token || !role) {
+        return <Navigate to="/admin/login" replace state={{ from: location }} />;
+    }
 
-        if (!token || !role) {
-            setStatus('unauthorized');
-            return;
-        }
-        if (requireSuperAdmin && role !== 'SUPER_ADMIN') {
-            setStatus('unauthorized');
-            return;
-        }
-        setRole(role);
-        setStatus('ok');
-    }, []);
-    if (status === 'loading') return (
-        <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            height: '100vh', color: '#4a90d9', fontSize: '16px'
-        }}>
-            Se verifică autentificarea...
-        </div>
-    );
-
-    if (status === 'unauthorized') return <Navigate to="/admin/login" replace />;
+    if (requireSuperAdmin && role !== 'SUPER_ADMIN') {
+        return <Navigate to="/admin/dashboard" replace />;
+    }
 
     return children;
 }
